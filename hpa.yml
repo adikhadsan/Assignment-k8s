@@ -1,0 +1,19 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  creationTimestamp: "2024-01-13T18:48:23Z"
+  name: demo-deploy
+  namespace: default
+  resourceVersion: "51555"
+  uid: dd00ab37-ad3e-4e96-8230-2c99d35566d7
+spec:
+  maxReplicas: 2
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: demo-deploy
+  targetCPUUtilizationPercentage: 20
+status:
+  currentReplicas: 0
+  desiredReplicas: 0

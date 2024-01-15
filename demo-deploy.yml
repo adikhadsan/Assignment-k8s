@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: demo-deploy
+  name: demo-deploy
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: demo-deploy
+  minReadySeconds: 5
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: demo-deploy
+    spec:
+      containers:
+      - image: aditya7133/demo-app:v1   
+        ports:
+        - containerPort: 8080
+        name: demo-app
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+        volumeMounts:
+        - name: persistent-storage
+          mountPath: /usr/local/tomcat/logs
+      volumes:
+      - name: persistent-storage
+        persistentVolumeClaim:
+          claimName: local-pvc

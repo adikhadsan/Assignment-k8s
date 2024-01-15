@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webapp
+  annotations:
+    "autoscaling.alpha.kubernetes.io/vertical-pod-autoscaler": "enabled"
+spec:
+  containers:
+  - name: webapp
+    image: nginx
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+      limits:
+        memory: "128Mi"
+        cpu: "500m"

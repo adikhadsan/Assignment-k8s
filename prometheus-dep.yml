@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus
+  namespace: prometheus
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+      tier: backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: prometheus
+        tier: backend
+    spec:
+      containers:
+        - name: prometheus
+          image: prom/prometheus
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/prometheus
+            - name: alertrule-volume
+              mountPath: /alertrule
+          ports:
+            - containerPort: 9090
+      volumes:
+        - name: config-volume
+          configMap:
+            name: prometheus-config
+        - name: alertrule-volume
+          configMap:
+            name: alertrule-config

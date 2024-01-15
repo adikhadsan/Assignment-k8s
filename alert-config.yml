@@ -1,0 +1,26 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alertmanager-config
+  namespace: prometheus
+data:
+  config.yml: |-
+    global:
+     resolve_timeout: 1m
+    route:     
+     receiver: email
+     routes:
+       - match:
+           severity: warning
+         continue: true
+         receiver: 'email'
+    receivers:
+    - name: email
+      email_configs:
+      - to: adityakhadsan47@gmail.com
+        from: adityakhadsan@gmail.com
+        smarthost: smtp.gmail.com:587
+        auth_username: "adityakhadsan@gmail.com"
+        auth_identity: "adityakhadsan@gmail.com"
+        auth_password: "uoflzbvrznxeydvr"
+        send_resolved: true
