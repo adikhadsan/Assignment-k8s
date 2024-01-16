@@ -48,17 +48,7 @@ spec:
       - name: data
         emptyDir: {}
       initContainers:
-    #  - name: fix-permissions
-   #     image: busybox
-  #      command: ["sh", "-c", "chown -R 1000:1000 /usr/share/elasticsearch/data"]
- #       securityContext:
-#          privileged: true
-#        volumeMounts:
- #       - name: data1
-  #        mountPath: /usr/share/elasticsearch/data
-   #   volumes:
-    #  - name: data1
-     #   emptyDir: {}
+   
       - name: increase-vm-max-map
         image: busybox
         command: ["sysctl", "-w", "vm.max_map_count=262144"]
@@ -72,14 +62,4 @@ spec:
 
 
 
- # volumeClaimTemplates:
- # - metadata:
-  #    name: data
-   #   labels:
-    #    app: elasticsearch
-   # spec:
-    #  accessModes: [ "ReadWriteOnce" ]
-      # storageClassName: ""
-     # resources:
-      #  requests:
-       #   storage: 3Gi
+ 
